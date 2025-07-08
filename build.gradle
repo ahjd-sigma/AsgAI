@@ -12,7 +12,8 @@ version = '1.0.0'
 
 repositories {
     mavenCentral()
-
+    
+    maven { url = "https://jitpack.io" }
     maven { url = "https://repo.aikar.co/content/groups/aikar/" }
 
     maven {
@@ -67,15 +68,45 @@ processResources {
     }
 }
 
+java {
+    withSourcesJar()
+}
+
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            groupId = 'ahjd'
+        maven(MavenPublication) {
+            groupId = project.group
             artifactId = 'asgai'
-            version = '1.0.0'
-
-            artifact(tasks.shadowJar) {
-                builtBy(tasks.shadowJar)
+            version = project.version
+            
+            artifact jar
+            artifact shadowJar
+            artifact sourcesJar
+            
+            pom {
+                name = 'AsgAI'
+                description = 'Advanced Mob AI API for Minecraft Paper servers'
+                url = 'https://github.com/yourusername/AsgAI'
+                
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+                
+                developers {
+                    developer {
+                        id = 'ahjd'
+                        name = 'ahjd'
+                    }
+                }
+                
+                scm {
+                    connection = 'scm:git:git://github.com/yourusername/AsgAI.git'
+                    developerConnection = 'scm:git:ssh://github.com:yourusername/AsgAI.git'
+                    url = 'https://github.com/yourusername/AsgAI/tree/main'
+                }
             }
         }
     }

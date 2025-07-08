@@ -1,5 +1,20 @@
 name: AsgAI
-version: '1'
+version: '${version}'
 main: ahjd.asgAI.AsgAI
 api-version: '1.21'
 authors: [ ahjd ]
+description: 'Advanced Mob AI API for Minecraft Paper servers'
+website: 'https://github.com/yourusername/AsgAI'
+load: STARTUP
+commands:
+  mobai:
+    description: 'Mob AI management commands'
+    usage: '/mobai <spawn|change> [behavior]'
+    permission: asgai.use
+permissions:
+  asgai.use:
+    description: 'Allows use of AsgAI commands'
+    default: op
+  asgai.admin:
+    description: 'Allows administrative access to AsgAI'
+    default: op

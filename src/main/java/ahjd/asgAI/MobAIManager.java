@@ -15,7 +15,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -26,6 +28,22 @@ public class MobAIManager implements Listener {
     private final Map<UUID, MobBehaviour> activeBehaviors = new ConcurrentHashMap<>();
     private final JavaPlugin plugin;
 
+    /**
+     * Get the singleton instance of MobAIManager
+     * @return MobAIManager instance or null if not initialized
+     */
+    public static MobAIManager getInstance() {
+        return instance;
+    }
+
+    /**
+     * Check if the MobAIManager is initialized
+     * @return true if initialized, false otherwise
+     */
+    public static boolean isInitialized() {
+        return instance != null;
+    }
+
     private MobAIManager(JavaPlugin plugin) {
         this.plugin = plugin;
         registerDefaultBehaviors();
@@ -34,10 +52,6 @@ public class MobAIManager implements Listener {
 
     public static void initialize(JavaPlugin plugin) {
         instance = new MobAIManager(plugin);
-    }
-
-    public static MobAIManager getInstance() {
-        return instance;
     }
 
     private void registerDefaultBehaviors() {
@@ -81,6 +95,40 @@ public class MobAIManager implements Listener {
 
     public MobBehaviour getCurrentBehavior(Mob mob) {
         return activeBehaviors.get(mob.getUniqueId());
+    }
+
+    /**
+     * Get all registered behavior IDs
+     * @return Set of behavior IDs
+     */
+    public Set<String> getRegisteredBehaviorIds() {
+        return new HashSet<>(registeredBehaviors.keySet());
+    }
+
+    /**
+     * Get a registered behavior by ID
+     * @param behaviorId The behavior ID
+     * @return MobBehaviour instance or null if not found
+     */
+    public MobBehaviour getBehavior(String behaviorId) {
+        return registeredBehaviors.get(behaviorId);
+    }
+
+    /**
+     * Check if a behavior is registered
+     * @param behaviorId The behavior ID to check
+     * @return true if registered, false otherwise
+     */
+    public boolean isBehaviorRegistered(String behaviorId) {
+        return registeredBehaviors.containsKey(behaviorId);
+    }
+
+    /**
+     * Get all active behaviors
+     * @return Map of mob UUIDs to their active behaviors
+     */
+    public Map<UUID, MobBehaviour> getActiveBehaviors() {
+        return new HashMap<>(activeBehaviors);
     }
     private void startTickTask() {
         new BukkitRunnable() {
