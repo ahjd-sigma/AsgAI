@@ -1,0 +1,5 @@
+name: AsgAI
+version: '1'
+main: ahjd.asgAI.AsgAI
+api-version: '1.21'
+authors: [ ahjd ]
