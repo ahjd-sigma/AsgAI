@@ -458,3 +458,5 @@ if (api.getCustomGoalTemplates().contains("my_goal")) {
 | `removeGoals(mob, identifier)` | Remove goals by identifier |
 | `clearAllGoals(mob)` | Remove all goals from a mob |
 | `getNMSMob(bukkitMob)` | Get NMS mob instance |
+
+[![](https://jitpack.io/v/ahjd-sigma/AsgAI.svg)](https://jitpack.io/#ahjd-sigma/AsgAI)
