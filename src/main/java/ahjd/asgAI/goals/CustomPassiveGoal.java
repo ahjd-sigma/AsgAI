@@ -1,13 +1,14 @@
 package ahjd.asgAI.goals;
 
 
+import ahjd.asgAI.utils.IdentifiableGoal;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 
 import java.util.EnumSet;
 
-public class CustomPassiveGoal extends Goal {
+public class CustomPassiveGoal extends Goal implements IdentifiableGoal {
     private final Mob mob;
     private Player fleeTarget;
     private final double fleeDistance;
@@ -18,6 +19,11 @@ public class CustomPassiveGoal extends Goal {
         this.fleeDistance = 12.0;
         this.fleeSpeed = 2.2;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+    }
+
+    @Override
+    public String getGoalId() {
+        return "passive";
     }
 
     @Override

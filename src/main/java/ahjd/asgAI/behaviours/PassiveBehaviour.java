@@ -5,6 +5,7 @@ import ahjd.asgAI.utils.BehaviourEnums;
 import ahjd.asgAI.utils.MobBehaviour;
 import ahjd.asgAI.utils.NMSHelper;
 import org.bukkit.entity.Mob;
+import org.bukkit.event.entity.EntityTargetEvent;
 
 public class PassiveBehaviour implements MobBehaviour {
 
@@ -14,8 +15,12 @@ public class PassiveBehaviour implements MobBehaviour {
         NMSHelper.addCustomGoal(mob, new CustomPassiveGoal(
                 NMSHelper.getNMSMob(mob)
         ), BehaviourEnums.BehaviourPriority.NORMAL);
-        mob.setTarget(null); // prevent chasing
-        mob.setPersistent(true); //type shi
+    }
+
+    @Override
+    public void onTarget(Mob mob, EntityTargetEvent event) {
+        event.setCancelled(true);
+        mob.setTarget(null);
     }
 
     @Override
@@ -25,7 +30,7 @@ public class PassiveBehaviour implements MobBehaviour {
 
     @Override
     public BehaviourEnums.BehaviourType getType() {
-        return BehaviourEnums.BehaviourType.NEUTRAL;
+        return BehaviourEnums.BehaviourType.PASSIVE;
     }
 
     @Override

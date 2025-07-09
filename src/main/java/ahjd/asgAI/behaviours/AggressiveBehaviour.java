@@ -12,6 +12,7 @@ public class AggressiveBehaviour implements MobBehaviour {
 
     @Override
     public void onApply(Mob mob) {
+        NMSHelper.clearAllGoals(mob);
         NMSHelper.addCustomGoal(mob, new CustomAggressiveGoal(
                 NMSHelper.getNMSMob(mob), 1.0, 16.0
         ), BehaviourEnums.BehaviourPriority.HIGH);

@@ -1,13 +1,14 @@
 package ahjd.asgAI.goals;
 
 
+import ahjd.asgAI.utils.IdentifiableGoal;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.server.level.ServerLevel;
 import java.util.EnumSet;
 
-public class CustomAggressiveGoal extends Goal {
+public class CustomAggressiveGoal extends Goal implements IdentifiableGoal {
     private final Mob mob;
     private final double speed;
     private final double range;
@@ -19,6 +20,11 @@ public class CustomAggressiveGoal extends Goal {
         this.speed = speed;
         this.range = range;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+    }
+
+    @Override
+    public String getGoalId() {
+        return "aggressive";
     }
 
     @Override

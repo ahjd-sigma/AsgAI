@@ -43,9 +43,13 @@ public class NMSHelper {
             @SuppressWarnings("unchecked")
             Set<WrappedGoal> availableGoals = (Set<WrappedGoal>) availableGoalsField.get(goalSelector);
 
-            availableGoals.removeIf(wrappedGoal ->
-                    wrappedGoal.getGoal().getClass().getSimpleName().toLowerCase().contains(identifier)
-            );
+            availableGoals.removeIf(wrappedGoal -> {
+                Goal goal = wrappedGoal.getGoal();
+                if (goal instanceof IdentifiableGoal identifiable) {
+                    return identifiable.getGoalId().equals(identifier);
+                }
+                return false;
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

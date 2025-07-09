@@ -1,11 +1,12 @@
 package ahjd.asgAI.goals;
 
+import ahjd.asgAI.utils.IdentifiableGoal;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
 import java.util.EnumSet;
 
-public class CustomNeutralGoal extends Goal {
+public class CustomNeutralGoal extends Goal implements IdentifiableGoal {
     private final Mob mob;
     private final double wanderRange;
     private int wanderCooldown;
@@ -15,6 +16,11 @@ public class CustomNeutralGoal extends Goal {
         this.mob = mob;
         this.wanderRange = 10.0;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE));
+    }
+
+    @Override
+    public String getGoalId() {
+        return "neutral";
     }
 
     @Override

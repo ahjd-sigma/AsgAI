@@ -13,6 +13,7 @@ public class NeutralBehaviour implements MobBehaviour {
 
     @Override
     public void onApply(Mob mob) {
+        NMSHelper.clearAllGoals(mob);
         NMSHelper.addCustomGoal(mob, new CustomNeutralGoal(
                 NMSHelper.getNMSMob(mob)
         ), BehaviourEnums.BehaviourPriority.NORMAL);

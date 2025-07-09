@@ -8,6 +8,8 @@ import org.bukkit.event.entity.EntityTargetEvent;
 
 public interface MobBehaviour {
 
+    default boolean requiresTicking() { return false; }
+
     /**
      * Called when behavior is applied to a mob
      */

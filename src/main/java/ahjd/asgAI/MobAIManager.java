@@ -130,6 +130,7 @@ public class MobAIManager implements Listener {
     public Map<UUID, MobBehaviour> getActiveBehaviors() {
         return new HashMap<>(activeBehaviors);
     }
+
     private void startTickTask() {
         new BukkitRunnable() {
             @Override
@@ -137,21 +138,19 @@ public class MobAIManager implements Listener {
                 activeBehaviors.entrySet().removeIf(entry -> {
                     UUID uuid = entry.getKey();
                     MobBehaviour behavior = entry.getValue();
-
                     Entity entity = plugin.getServer().getEntity(uuid);
-                    if (entity instanceof Mob) {
-                        Mob mob = (Mob) entity;
+
+                    if (entity instanceof Mob mob) {
                         if (mob.isValid() && !mob.isDead()) {
-                            behavior.onTick(mob);
-                            return false; // Keep
-                        } else {
-                            behavior.onRemove(mob);
-                            return true; // Remove
+                            // Only tick if required
+                            if (behavior.requiresTicking()) {
+                                behavior.onTick(mob);
+                            }
+                            return false;
                         }
-                    } else {
-                        // Entity is null or not a mob anymore - clean up
-                        return true; // Remove
+                        behavior.onRemove(mob);
                     }
+                    return true; // Remove invalid entries
                 });
             }
         }.runTaskTimer(plugin, 0L, 1L);
@@ -169,13 +168,14 @@ public class MobAIManager implements Listener {
         }
     }
 
+    // In MobAIManager
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (event.getEntity() instanceof Mob) {
-            Mob mob = (Mob) event.getEntity();
+        if (event.getEntity() instanceof Mob mob) {
             MobBehaviour behavior = activeBehaviors.remove(mob.getUniqueId());
             if (behavior != null) {
                 behavior.onDeath(mob, event);
+                behavior.onRemove(mob);
             }
         }
     }
