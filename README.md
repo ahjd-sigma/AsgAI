@@ -458,28 +458,3 @@ if (api.getCustomGoalTemplates().contains("my_goal")) {
 | `removeGoals(mob, identifier)` | Remove goals by identifier |
 | `clearAllGoals(mob)` | Remove all goals from a mob |
 | `getNMSMob(bukkitMob)` | Get NMS mob instance |
-
-## Contributing
-
-We welcome contributions! Please:
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Support
-
-For support, please:
-- Open an issue on GitHub
-- Join our Discord server
-- Check the wiki for additional documentation
-
----
-
-**Happy coding! 🚀**
